@@ -1,0 +1,66 @@
+﻿@model DisasterAlleviation.Models.DisasterModel;
+<style>
+    a:hover {
+        color: orange;
+    }
+
+    #c {
+        accent-color: orange;
+    }
+
+    a {
+        color: white;
+    }
+</style>
+<h4>Disaster catalog</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateProccess">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Startdate" class="control-label"></label>
+                <input asp-for="Startdate" class="form-control" type="date" />
+                <span asp-validation-for="Startdate" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Enddate" class="control-label"></label>
+                <input asp-for="Enddate" class="form-control" type="date" />
+                <span asp-validation-for="Enddate" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Aidtype" class="control-label"></label>
+                <input asp-for="Aidtype" class="form-control" />
+                <span asp-validation-for="Aidtype" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" style="background-color:orange" value="Add Disaster" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<DisasterAlleviation.Models.DisasterModel>
+<style>
+    a:hover {
+        color: orange;
+    }
+
+    a {
+        color: white;
+    }
+</style>
+<p>
+    <a asp-action="Create">Add a Disaster</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Aidtype)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aidtype)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

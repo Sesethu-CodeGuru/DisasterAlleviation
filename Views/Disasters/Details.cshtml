@@ -1,0 +1,53 @@
+﻿@model DisasterAlleviation.Models.DisasterModel
+<style>
+    a:hover {
+        color: orange;
+    }
+
+    a {
+        color: white;
+    }
+</style>
+<div>
+    <h4>Disaster Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Startdate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Startdate)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enddate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enddate)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Aidtype)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Aidtype)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

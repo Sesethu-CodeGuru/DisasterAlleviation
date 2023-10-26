@@ -1,0 +1,42 @@
+﻿@model DisasterAlleviation.Models.GoodsCatModel;
+<style>
+    a:hover {
+        color: orange;
+    }
+
+    #c {
+        accent-color: orange;
+    }
+
+    a {
+        color: white;
+    }
+</style>
+<h4>Make a Donation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateProccess">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" style="background-color:orange" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    @Html.ActionLink("Back", "Create","Goods")
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

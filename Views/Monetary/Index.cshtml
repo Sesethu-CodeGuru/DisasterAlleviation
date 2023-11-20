@@ -1,42 +1,93 @@
 ﻿@model IEnumerable<DisasterAlleviation.Models.DonMonetaryModel>
+
 <style>
+    body {
+        background-color: purple;
+        font-family: Arial, sans-serif;
+    }
+
+    .card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 10px;
+    }
+
     a:hover {
         color: orange;
     }
 
     a {
+        color: black;
+        text-decoration: none;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: orange;
         color: white;
     }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 </style>
-<p>
-    <a asp-action="Create">Donate</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+
+<div class="card">
+    <a asp-action="Create">New Monetary Donation</a>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.ID })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    Disaster Description
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Username)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.DisasterDescription)</a>
+                    </td>
+                    <td>
+                        R @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

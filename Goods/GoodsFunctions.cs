@@ -1,7 +1,9 @@
 ﻿using System.Data.SqlClient;
 using DisasterAlleviation.Category;
+using DisasterAlleviation.Disaster;
 using DisasterAlleviation.Models;
 using DisasterAlleviation.Users;
+using NuGet.LibraryModel;
 
 namespace DisasterAlleviation.Goods
 {
@@ -34,6 +36,8 @@ namespace DisasterAlleviation.Goods
                             {
                                 ID = int.Parse(string.Format("{0}", reader[Goods.ID()])),
                                 Date = DateTime.Parse(string.Format("{0}", reader[Goods.Date()])),
+                                DisasterID = int.Parse(string.Format("{0}", reader[Goods.DisasID()])),
+                                DisasterDescription = string.Format("{0}", reader[Goods.DisasDesc()]),
                                 Noitems = int.Parse(string.Format("{0}", reader[Goods.Items()])),
                                 Category = string.Format("{0}", reader[Goods.Cat()]),
                                 Description = string.Format("{0}", reader[Goods.Desc()]),
@@ -56,7 +60,7 @@ namespace DisasterAlleviation.Goods
             List<DonGoodsModel> Donation = new List<DonGoodsModel>();
 
             string sql = $"select * from {Goods.Table()} where {Goods.ID()}={Id}";
-            Console.WriteLine(sql);
+
             SqlDataReader reader;
             SqlCommand command;
             SqlConnection connection = new SqlConnection(connectionStr);
@@ -76,6 +80,8 @@ namespace DisasterAlleviation.Goods
                             {
                                 ID = int.Parse(string.Format("{0}", reader[Goods.ID()])),
                                 Date = DateTime.Parse(string.Format("{0}", reader[Goods.Date()])),
+                                DisasterID = int.Parse(string.Format("{0}", reader[Goods.DisasID()])),
+                                DisasterDescription = string.Format("{0}", reader[Goods.DisasDesc()]),
                                 Noitems = int.Parse(string.Format("{0}", reader[Goods.Items()])),
                                 Category = string.Format("{0}", reader[Goods.Cat()]),
                                 Description = string.Format("{0}", reader[Goods.Desc()]),
@@ -99,10 +105,11 @@ namespace DisasterAlleviation.Goods
             string username = (donation.Anonymous) ? "anonymous" : UserFunctions.LoginUser();
             DateTime date = DateTime.Parse(donation.Date.ToString());
             string category = Get($"select {Category.Category.Cat()} from {Category.Category.Table()} where {Category.Category.ID()}={int.Parse(donation.Category)}",0);
+            Console.WriteLine("Text: "+donation.DisasterDescription);
             string sql = $"insert into {Goods.Table()}" +
-                $"({Goods.Date()},{Goods.Items()},{Goods.Cat()}," +
+                $"({Goods.DisasID()},{Goods.DisasDesc()},{Goods.Date()},{Goods.Items()},{Goods.Cat()}," +
                 $"{Goods.Desc()},{Goods.Username()}) " +
-                $"values('{date.ToString("d")}',{donation.Noitems},'{category}','{donation.Description}'," +
+                $"values({donation.DisasterID},'{GetDesc(donation.DisasterID)}','{date.ToString("s")}',{donation.Noitems},'{category}','{donation.Description}'," +
                 $"'{username}')";
 
             Console.WriteLine(sql);
@@ -149,6 +156,34 @@ namespace DisasterAlleviation.Goods
 
             return value;
         }
+        public string GetDesc(int id)
+        {
+            string value = "";
+            SqlDataReader reader;
+            SqlCommand command;
+            string sql = $"select {Disasters.Description()} from {Disasters.Table()} where {Disasters.ID()} ={id}";
 
+            SqlConnection connection = new SqlConnection(connectionStr);
+
+            connection.Open();
+
+            using (command = new SqlCommand(sql, connection))
+            using (reader = command.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+
+                    while (reader.Read())
+                    {
+                        string output = string.Format("{0}", reader[0]);
+                        value = output;
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return value;
+        }
     }
 }

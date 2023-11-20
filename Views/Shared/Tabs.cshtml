@@ -4,13 +4,19 @@
     @if (UserFunctions.Logged())
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Monetary" asp-action="Index" style="color:white">Money Donations</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Monetary" asp-action="Index" style="color:white">Monetary Donations</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Goods" asp-action="Index" style="color:white">Goods Donations</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Purchased" asp-action="Index" style="color:white">Purchased Donations</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Disasters" asp-action="Index" style="color:white">Disasters</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="PurchasedGoods" asp-action="Index" style="color:white">Purchase Goods</a>
         </li>
     }
     else

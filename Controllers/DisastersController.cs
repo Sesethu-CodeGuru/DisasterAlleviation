@@ -7,10 +7,9 @@ namespace DisasterAlleviation.Controllers
     public class DisastersController : Controller
     {
         List<DisasterModel> DisasterModel = new List<DisasterModel>();
-        DisasterFunctions disaster = new DisasterFunctions();
         public IActionResult Index()
         {
-            disaster.GetDisasters(out DisasterModel);
+            DisasterFunctions.GetDisasters(out DisasterModel);
             return View(DisasterModel);
         }
 
@@ -22,14 +21,14 @@ namespace DisasterAlleviation.Controllers
         public IActionResult CreateProccess(
         [Bind("ID,Startdate,Enddate,Location,Description,Aidtype")] DisasterModel disasters)
         {
-            disaster.AddDisaster(disasters);
-            disaster.GetDisasters(out DisasterModel);
+            DisasterFunctions.AddDisaster(disasters);
+            DisasterFunctions.GetDisasters(out DisasterModel);
             return View("Index", DisasterModel);
         }
 
         public ActionResult Details(int id)
         {
-            var disasters = disaster.GetDisaster(id);
+            var disasters = DisasterFunctions.GetDisaster(id);
             return View(disasters);
         }
     }

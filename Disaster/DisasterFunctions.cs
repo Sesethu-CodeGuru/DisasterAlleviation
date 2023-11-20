@@ -52,6 +52,32 @@ namespace DisasterAlleviation.Disaster
             }
         }
 
+        public static int CalculateAllocatedGoodsForDisaster(int disasterId)
+        {
+            int allocatedGoods = 0;
+
+            string sql = $"SELECT ISNULL(SUM({Purchased.Purchased.Items()}), 0) FROM {Purchased.Purchased.Table()} WHERE {Purchased.Purchased.DisasID()} = {disasterId}";
+
+            SqlDataReader reader;
+            SqlCommand command;
+            SqlConnection connection = new SqlConnection(connectionStr);
+
+            connection.Open();
+
+            using (command = new SqlCommand(sql, connection))
+            using (reader = command.ExecuteReader())
+            {
+                if (reader.HasRows && reader.Read())
+                {
+                    allocatedGoods = reader.IsDBNull(0) ? 0 : int.Parse(reader[0].ToString());
+                }
+            }
+
+            connection.Close();
+
+            return allocatedGoods;
+        }
+
         public static DisasterModel GetDisaster(int? Id)
         {
             List<DisasterModel> Disasters = new List<DisasterModel>();
@@ -80,7 +106,8 @@ namespace DisasterAlleviation.Disaster
                                 Enddate = DateTime.Parse(string.Format("{0}", reader[Disaster.Disasters.End()])),
                                 Location = string.Format("{0}", reader[Disaster.Disasters.Location()]),
                                 Description = string.Format("{0}", reader[Disaster.Disasters.Description()]),
-                                Aidtype = string.Format("{0}", reader[Disaster.Disasters.AidTypes()])
+                                Aidtype = string.Format("{0}", reader[Disaster.Disasters.AidTypes()]),
+                                AllocatedGoods = CalculateAllocatedGoodsForDisaster(int.Parse(string.Format("{0}", reader[Disaster.Disasters.ID()])))
                             });
                         }
                         catch (Exception e)

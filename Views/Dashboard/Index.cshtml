@@ -1,0 +1,20 @@
+﻿@model DisasterAlleviation.Models.DashboardViewModel
+
+<h2>Dashboard</h2>
+
+<div>
+    <h3>Total Monetary Donations: @ViewBag.TotalMonetaryDonations</h3>
+    <h3>Total Number of Goods Donations: @ViewBag.TotalGoodsReceived</h3>
+
+    <h3>Currently Active Disasters:</h3>
+    <ul>
+        @foreach (var disaster in ViewBag.ActiveDisasters)
+        {
+            <li>
+                <strong>@disaster.Description</strong>
+                <br />
+                Allocated Goods: @disaster.AllocatedGoods
+            </li>
+        }
+    </ul>
+</div>

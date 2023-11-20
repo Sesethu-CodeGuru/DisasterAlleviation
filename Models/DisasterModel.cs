@@ -8,5 +8,6 @@
         public string Location { get; set; }
         public string Description { get; set; }
         public string Aidtype { get; set; }
+        public int AllocatedGoods { get; set; }
     }
 }

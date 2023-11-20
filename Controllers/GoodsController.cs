@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DisasterAlleviation.Models;
 using DisasterAlleviation.Goods;
 using DisasterAlleviation.Category;
+using DisasterAlleviation.Disaster;
 
 namespace DisasterAlleviation.Controllers
 {
@@ -22,11 +23,10 @@ namespace DisasterAlleviation.Controllers
             return View(GoodModel);
         }
 
-        // GET: DonGoodsController/Details/5
         public ActionResult Details(int id)
         {
-            var Donation = Goods.GetDonation(id);
-            return View(Donation);
+            var disasters = DisasterFunctions.GetDisaster(id);
+            return View(disasters);
         }
 
         // GET: DonGoodsController/Create
@@ -39,12 +39,19 @@ namespace DisasterAlleviation.Controllers
             {
                 ViewBag.data = items;
             }
+            List<DisasterModel> Disaster = new List<DisasterModel>();
+            DisasterFunctions.GetDisasters(out Disaster);
+            var items2 = Disaster;
+            if (items2 != null)
+            {
+                ViewBag.data2 = items2;
+            }
             return View();
         }
 
         // POST: DonGoodsController/Create
         public IActionResult CreateProccess(
-        [Bind("ID,Date,Noitems,Category,Description,Anonymous,Username")] DonGoodsModel don)
+        [Bind("ID,Date,DisasterID,DisasterDescription,Noitems,Category,Description,Anonymous,Username")] DonGoodsModel don)
         {
             Goods.AddDonation(don);
             Goods.GetDonations(out GoodModel);

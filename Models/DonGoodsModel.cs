@@ -4,6 +4,8 @@
     {
         public int ID { get; set; }
         public DateTime Date { get; set; }
+        public int DisasterID { get; set; }
+        public string DisasterDescription { get; set; }
         public int Noitems { get; set; }
         public string Category { get; set; }
         public string Description { get; set; }

@@ -1,0 +1,97 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = DisasterDonations
+build_property.RootNamespace = DisasterDonations
+build_property.ProjectDir = C:\Users\frans\source\repos\DisasterAlleviation\DisasterDonations\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\frans\source\repos\DisasterAlleviation\DisasterDonations
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/Category/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/Disaster/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzYXN0ZXJcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/Disaster/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzYXN0ZXJcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/Disaster/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzYXN0ZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/DonGoods/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uR29vZHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/DonGoods/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uR29vZHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/DonGoods/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uR29vZHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/DonMonetary/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uTW9uZXRhcnlcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/DonMonetary/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uTW9uZXRhcnlcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/DonMonetary/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uTW9uZXRhcnlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/Login/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/Register/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/Shared/Tabs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRhYnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/frans/source/repos/DisasterAlleviation/DisasterDonations/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-o10zbyaw3z

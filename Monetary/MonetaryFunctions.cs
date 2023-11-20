@@ -1,7 +1,9 @@
 ﻿using System.Data.SqlClient;
 using System.Reflection;
+using DisasterAlleviation.Disaster;
 using DisasterAlleviation.Models;
 using DisasterAlleviation.Users;
+using NuGet.LibraryModel;
 
 namespace DisasterAlleviation.Monetary
 {
@@ -32,6 +34,8 @@ namespace DisasterAlleviation.Monetary
                         {
                             Donations.Add(new DonMonetaryModel { 
                                 ID = int.Parse(string.Format("{0}", reader[Monetary.ID()])),
+                                DisasterID = int.Parse(string.Format("{0}", reader[Monetary.DisasID()])),
+                                DisasterDescription = string.Format("{0}", reader[Monetary.DisasDesc()]),
                                 Date = DateTime.Parse(string.Format("{0}", reader[Monetary.DATE()])),
                                 Amount = double.Parse(string.Format("{0}", reader[Monetary.AMOUNT()])),
                                 Username = string.Format("{0}", reader[Monetary.USERNAME()])
@@ -72,6 +76,8 @@ namespace DisasterAlleviation.Monetary
                             Donation.Add(new DonMonetaryModel
                             {
                                 ID = int.Parse(string.Format("{0}", reader[Monetary.ID()])),
+                                DisasterID = int.Parse(string.Format("{0}", reader[Monetary.DisasID()])),
+                                DisasterDescription = string.Format("{0}", reader[Monetary.DisasDesc()]),
                                 Date = DateTime.Parse(string.Format("{0}", reader[Monetary.DATE()])),
                                 Amount = double.Parse(string.Format("{0}", reader[Monetary.AMOUNT()])),
                                 Username = string.Format("{0}", reader[Monetary.USERNAME()])
@@ -94,8 +100,8 @@ namespace DisasterAlleviation.Monetary
             string username = (donation.Anonymous)?"anonymous":UserFunctions.LoginUser();
             DateTime date = DateTime.Parse(donation.Date.ToString());
             string sql = $"insert into {Monetary.Table()}" +
-                $"({Monetary.DATE()},{Monetary.AMOUNT()},{Monetary.USERNAME()}) " +
-                $"values('{date.ToString("d")}',{donation.Amount},'{username}')";
+                $"({Monetary.DisasID()},{Monetary.DisasDesc()},{Monetary.DATE()},{Monetary.AMOUNT()},{Monetary.USERNAME()}) " +
+                $"values({donation.DisasterID},'{GetDesc(donation.DisasterID)}','{date.ToString("s")}',{donation.Amount},'{username}')";
             Console.WriteLine(sql);
             SqlCommand command;
             SqlConnection connection = new SqlConnection(connectionStr);
@@ -113,39 +119,13 @@ namespace DisasterAlleviation.Monetary
 
         }
 
-        public string Get(string sql, int coloumn_index)
+        public string GetDesc(int id)
         {
             string value = "";
-            SqlDataReader reader = null;
+            SqlDataReader reader;
             SqlCommand command;
-            SqlConnection connection = new SqlConnection(connectionStr);
+            string sql = $"select {Disasters.Description()} from {Disasters.Table()} where {Disasters.ID()} ={id}";
 
-            connection.Open();
-
-            using (command = new SqlCommand(sql, connection))
-            using (reader = command.ExecuteReader())
-            {
-                if (reader.HasRows)
-                {
-
-                    while (reader.Read())
-                    {
-                        string output = string.Format("{0}", reader[coloumn_index]);
-                        value = output;
-                    }
-                }
-
-                connection.Close();
-            }
-
-            return value;
-        }
-
-        public int Get(string sql, string coloumn_name)
-        {
-            int value = -1;
-            SqlDataReader reader = null;
-            SqlCommand command;
             SqlConnection connection = new SqlConnection(connectionStr);
 
             connection.Open();
@@ -159,14 +139,7 @@ namespace DisasterAlleviation.Monetary
                     while (reader.Read())
                     {
                         string output = string.Format("{0}", reader[0]);
-                        try
-                        {
-                            value = int.Parse(output);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
+                        value = output;
                     }
                 }
 
@@ -174,38 +147,6 @@ namespace DisasterAlleviation.Monetary
             }
 
             return value;
-        }
-
-        public void Run(string sql)
-        {
-            SqlCommand command;
-            SqlConnection connection = new SqlConnection(connectionStr);
-
-            connection.Open();
-
-            using (command = new SqlCommand(sql, connection))
-            {
-
-                command.ExecuteNonQuery();
-
-                connection.Close();
-
-            }
-        }
-
-        int SemesterWeeks()
-        {
-            string FTable = "MODULE_DETAILS";
-            string STable = "USER_LoggedIn";
-            string TTable = "USER_MODULES";
-            string FrTable = "USER_SEMESTER";
-            string FvTable = "SEMESTER_DETAILS";
-            string Column = "USERNAME";
-            string Column1 = "MODULE_ID";
-
-            int weeks = Get($"select s.SEMESTER_WEEKS from {FvTable} s,{FrTable} us,{TTable} um,{STable} L,{FTable} m" +
-               $" where s.SEMESTER_ID = us.SEMESTER_ID and us.{Column} = um.{Column} and um.{Column} = L.{Column} and  um.{Column1}=m.{Column1}", "s.SEMESTER_WEEKS");
-            return weeks;
         }
 
     }

@@ -2,6 +2,7 @@
 using DisasterAlleviation.Disaster;
 using DisasterAlleviation.Goods;
 using DisasterAlleviation.Models;
+using NuGet.LibraryModel;
 
 namespace DisasterAlleviation.Disaster
 {
@@ -9,7 +10,7 @@ namespace DisasterAlleviation.Disaster
     {
         static string connectionStr = Connection.Connect();
 
-        public void GetDisasters(out List<DisasterModel> Disasters)
+        public static void GetDisasters(out List<DisasterModel> Disasters)
         {
             Disasters = new List<DisasterModel>();
 
@@ -51,7 +52,7 @@ namespace DisasterAlleviation.Disaster
             }
         }
 
-        public DisasterModel GetDisaster(int? Id)
+        public static DisasterModel GetDisaster(int? Id)
         {
             List<DisasterModel> Disasters = new List<DisasterModel>();
 
@@ -94,7 +95,7 @@ namespace DisasterAlleviation.Disaster
             return Disasters[0];
         }
 
-        public void AddDisaster(DisasterModel disaster)
+        public static void AddDisaster(DisasterModel disaster)
         {
             DateTime startdate = DateTime.Parse(disaster.Startdate.ToString());
             DateTime enddate = DateTime.Parse(disaster.Enddate.ToString());
@@ -119,6 +120,30 @@ namespace DisasterAlleviation.Disaster
 
             }
 
+        }
+        public static string DisasterDesc(int id)
+        {
+            string sql = $"select {Disasters.Description()} from {Disasters.Table()} where {Disasters.ID()} = '{id}'";
+            SqlDataReader reader;
+            SqlCommand command;
+            SqlConnection connection = new SqlConnection(connectionStr);
+
+            connection.Open();
+            string value = "";
+            using (command = new SqlCommand(sql, connection))
+            using (reader = command.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string output = string.Format("{0}", reader[Disasters.Description()]);
+                    }
+                }
+
+                connection.Close();
+            }
+            return value;
         }
     }
 }

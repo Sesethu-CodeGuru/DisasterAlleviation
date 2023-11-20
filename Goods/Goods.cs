@@ -11,7 +11,14 @@
         {
             return "DonationID";
         }
-
+        public static string DisasID()
+        {
+            return "DisasterID";
+        }
+        public static string DisasDesc()
+        {
+            return "DisasterDesc";
+        }
         public static string Date()
         {
             return "DonationDate";

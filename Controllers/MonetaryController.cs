@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using DisasterAlleviation.Models;
 using DisasterAlleviation.Monetary;
+using DisasterAlleviation.Disaster;
 
 namespace DisasterAlleviation.Controllers
 {
@@ -19,19 +20,26 @@ namespace DisasterAlleviation.Controllers
         // GET: DonMonetaryController/Details/5
         public ActionResult Details(int id)
         {
-            var Donation = Monetary.GetDonation(id);
-            return View(Donation);
+            var disasters = DisasterFunctions.GetDisaster(id);
+            return View(disasters);
         }
 
         // GET: DonMonetaryController/Create
         public ActionResult Create()
         {
+            List<DisasterModel> Disaster = new List<DisasterModel>();
+            DisasterFunctions.GetDisasters(out Disaster);
+            var items = Disaster;
+            if (items != null)
+            {
+                ViewBag.data = items;
+            }
             return View();
         }
 
         // POST: DonMonetaryController/Create
         public IActionResult CreateProccess(
-        [Bind("ID,Date,Amount,Username,Anonymous")] DonMonetaryModel don)
+        [Bind("ID,Date,DisasterID,DisasterDescription,Amount,Username,Anonymous")] DonMonetaryModel don)
         {
             Monetary.AddDonation(don);
             Monetary.GetDonations(out MonterayModel);

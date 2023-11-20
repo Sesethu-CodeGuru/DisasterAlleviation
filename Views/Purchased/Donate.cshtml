@@ -1,0 +1,63 @@
+﻿@model DisasterAlleviation.Models.DonPurchasedModel
+<style>
+    a:hover {
+        color: orange;
+    }
+
+    a {
+        color: white;
+    }
+</style>
+<h4>Donate Purchased Goods</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateProccess">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" type="date" required />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="DisasterDescription" class="control-label">Pick an Active Disaster</label>
+                <br />
+                @Html.DropDownList("DisasterID",new SelectList(ViewBag.data,"ID","Description"))
+                <span asp-validation-for="DisasterDescription" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" value="@ViewBag.Category" readonly />
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Noitems" class="control-label">No Items</label>
+                <input asp-for="Noitems" class="form-control" type="number" max="@ViewBag.Items" min="1" required />
+                <span asp-validation-for="Noitems" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input asp-for="Anonymous" type="checkbox" />
+                <label asp-for="Anonymous" class="control-label"></label>
+                <span asp-validation-for="Anonymous" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Donate" class="btn btn-primary" />
+            </div>
+            <br />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

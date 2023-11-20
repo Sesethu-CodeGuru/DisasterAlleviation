@@ -1,33 +1,94 @@
-﻿@model DisasterAlleviation.Models.UserModel
+﻿@{
+    ViewData["Title"] = "Signup";
+}
+@model DisasterAlleviation.Models.UserModel
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Global Styling */
+        body {
+            background-color: purple;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
 
-<h4>Signup</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+        /* Header Styling */
+        header {
+            background-color: orange;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        /* Form Styling */
+        .container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #444;
+            color: white;
+        }
+
+        input[type="submit"] {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            input[type="submit"]:hover {
+                background-color: purple;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Disaster Alleviation Foundation</h1>
+        <p>Register for an account</p>
+    </header>
+    <div class="container">
         <form asp-action="ProcessRegistry">
             <h5>@ViewBag.Status</h5>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
+                <label asp-for="Username" class="control-label">Username:</label>
                 <input asp-for="Username" class="form-control" maxlength="8" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
-            <br/>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
+                <label asp-for="Password" class="control-label">Password:</label>
                 <input asp-for="Password" class="form-control" type="password" maxlength="16" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <br/>
             <div class="form-group">
                 <input style="background-color:orange" type="submit" value="Register" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
+</body>
+</html>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

@@ -1,4 +1,6 @@
-﻿namespace DisasterAlleviation.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DisasterAlleviation.Models
 {
     public class DonPurchasedModel
     {

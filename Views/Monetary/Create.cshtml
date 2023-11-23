@@ -1,58 +1,69 @@
 ﻿@model DisasterAlleviation.Models.DonMonetaryModel;
 
-<style>
-    a:hover {
-        color: orange;
-    }
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        a:hover {
+            color: purple;
+        }
 
-    #c {
-        accent-color:orange;
-    }
-    a{
-        color:white;
-    }
-</style>
-<h4>Make a Donation</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateProccess">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" type="date" />
-                <span asp-validation-for="Date" class="text-danger"></span>
+        #c {
+            accent-color: orange;
+        }
+
+        a, h4, label, span {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <h4 style="color: white;">New Monetary Donation</h4>
+                <hr />
+                <form asp-action="CreateProccess">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Date" class="control-label"></label>
+                        <input asp-for="Date" class="form-control" type="date" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="DisasterDescription" class="control-label">Pick an Active Disaster</label>
+                        <br />
+                        @Html.DropDownList("DisasterID", new SelectList(ViewBag.data, "ID", "Description"), new { @class = "form-control" })
+                        <span asp-validation-for="DisasterDescription" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="Amount" class="control-label"></label>
+                        <input asp-for="Amount" class="form-control" />
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input asp-for="Anonymous" id="c" type="checkbox" value="true" />
+                        <label asp-for="Anonymous" class="control-label"></label>
+                        <span asp-validation-for="Anonymous" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" style="background-color: orange; color: white;" value="Donate" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="DisasterDescription" class="control-label">Pick an Active Disaster</label>
-                <br />
-                @Html.DropDownList("DisasterID",new SelectList(ViewBag.data,"ID","Description"))
-                <span asp-validation-for="DisasterDescription" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control"/>
-                <span asp-validation-for="Amount" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input asp-for="Anonymous" id="c" type="checkbox" value="true" />
-                <label asp-for="Anonymous" class="control-label"></label>
-                <span asp-validation-for="Anonymous" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" style="background-color:orange" value="Donate" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+        <div class="row justify-content-center mt-3">
+            <a asp-action="Index" style="color: white;">Back to List</a>
+        </div>
     </div>
-</div>
-<br />
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+</body>
+</html>
 
 @section Scripts {
     @{

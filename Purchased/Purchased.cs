@@ -26,10 +26,6 @@
         {
             return "DonationNoItems";
         }
-        public static string Cat()
-        {
-            return "DonationCategory";
-        }
         public static string Username()
         {
             return "DonationUsername";

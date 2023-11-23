@@ -55,6 +55,50 @@ namespace DisasterAlleviation.Goods
             }
         }
 
+        public static void GetAllGoodsDonations(out List<DonGoodsModel> allGoodsDonations)
+        {
+            allGoodsDonations = new List<DonGoodsModel>();
+
+            string sql = $"select * from {Goods.Table()}";
+
+            SqlDataReader reader;
+            SqlCommand command;
+            SqlConnection connection = new SqlConnection(connectionStr);
+
+            connection.Open();
+
+            using (command = new SqlCommand(sql, connection))
+            using (reader = command.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        try
+                        {
+                            allGoodsDonations.Add(new DonGoodsModel
+                            {
+                                ID = int.Parse(string.Format("{0}", reader[Goods.ID()])),
+                                Date = DateTime.Parse(string.Format("{0}", reader[Goods.Date()])),
+                                DisasterID = int.Parse(string.Format("{0}", reader[Goods.DisasID()])),
+                                DisasterDescription = string.Format("{0}", reader[Goods.DisasDesc()]),
+                                Noitems = int.Parse(string.Format("{0}", reader[Goods.Items()])),
+                                Category = string.Format("{0}", reader[Goods.Cat()]),
+                                Description = string.Format("{0}", reader[Goods.Desc()]),
+                                Username = string.Format("{0}", reader[Goods.Username()])
+                            });
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+        }
+
         public DonGoodsModel GetDonation(int? Id)
         {
             List<DonGoodsModel> Donation = new List<DonGoodsModel>();

@@ -1,0 +1,46 @@
+﻿trigger:
+- '*'
+
+pr:
+- '*'
+
+pool:
+  vmImage: 'windows-latest'
+
+jobs:
+- job: Build
+  displayName: 'Build and Test'
+  steps:
+  - script: dotnet restore
+    displayName: 'Restore dependencies'
+
+  - script: dotnet build --configuration Release
+    displayName: 'Build solution'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Run unit tests'
+    inputs:
+      command: 'test'
+      projects: '**/*Tests/*.csproj'
+      arguments: '--configuration Release'
+
+- job: Deploy
+  displayName: 'Deploy to Azure'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  steps:
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk 3.x'
+    inputs:
+      packageType: 'sdk'
+      version: '3.x'
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
+  - task: AzureRmWebAppDeployment@4
+    displayName: 'Deploy to Azure App Service'
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: 'Deploy-Conn'
+      appType: 'webApp'
+      WebAppName: 'DisasterAlleviation'
+      packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'

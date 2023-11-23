@@ -14,6 +14,6 @@
     <WebStackScaffolding_DbContextTypeFullName>DisasterDonations.Data.DisasterDonationsContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
-    <NameOfLastUsedPublishProfile>C:\Users\lab_services_student\Downloads\DisasterAlleviation\DisasterAlleviation\Properties\PublishProfiles\DisasterAlleviation20231027131109 - Zip Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\lab_services_student\Documents\DisasterAlleviation\Properties\PublishProfiles\DisasterAlleviation20231123225517 - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

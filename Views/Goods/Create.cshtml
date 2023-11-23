@@ -1,76 +1,86 @@
 ﻿@model DisasterAlleviation.Models.DonGoodsModel;
-<style>
-    a:hover {
-        color: purple; /* Change hover color to purple */
-    }
 
-    #c {
-        accent-color: orange;
-    }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        a:hover {
+            color: purple;
+        }
 
-    a {
-        color: white;
-    }
-</style>
-<h4 style="color: orange;">Make a Donation</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateProccess">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label" style="color: orange;">Donation Date</label>
-                <input asp-for="Date" class="form-control" type="date" />
-                <span asp-validation-for="Date" class="text-danger"></span>
+        #c {
+            accent-color: orange;
+        }
+
+        a {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <h4 style="color: white;">New Goods Donation</h4>
+                <hr />
+                <form asp-action="CreateProccess">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Date" class="control-label" style="color: white;">Donation Date</label>
+                        <input asp-for="Date" class="form-control" type="date" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="Noitems" class="control-label" style="color: white;">Number of Items</label>
+                        <input asp-for="Noitems" class="form-control" />
+                        <span asp-validation-for="Noitems" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="DisasterDescription" class="control-label" style="color: white;">Select an Active Disaster</label>
+                        <br />
+                        @Html.DropDownList("DisasterID", new SelectList(ViewBag.data2, "ID", "Description"), "Select a Disaster", new { @class = "form-control" })
+                        <span asp-validation-for="DisasterDescription" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="Category" class="control-label" style="color: white;">Select a Category</label>
+                        @Html.DropDownList("Category", new SelectList(ViewBag.data, "ID", "Category"), "Select a Category", new { @class = "form-control" })
+                        @Html.ActionLink("Add New Category", "Create", "Category", null, new { style = "color: orange;" })
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label" style="color: white;">Description</label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input asp-for="Anonymous" id="c" type="checkbox" value="true" />
+                        <label asp-for="Anonymous" class="control-label" style="color: white;">Donate Anonymously</label>
+                        <span asp-validation-for="Anonymous" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" style="background-color: orange; color: white;" value="Donate" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Noitems" class="control-label" style="color: orange;">Number of Items</label>
-                <input asp-for="Noitems" class="form-control" />
-                <span asp-validation-for="Noitems" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="DisasterDescription" class="control-label" style="color: orange;">Select an Active Disaster</label>
-                <br />
-                @Html.DropDownList("DisasterID", new SelectList(ViewBag.data2, "ID", "Description"), "Select a Disaster", new { @class = "form-control" })
-                <span asp-validation-for="DisasterDescription" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Category" class="control-label" style="color: orange;">Select a Category</label>
-                @Html.DropDownList("Category", new SelectList(ViewBag.data, "ID", "Category"), "Select a Category", new { @class = "form-control" })
-                @Html.ActionLink("Add New Category", "Create", "Category", null, new { style = "color: orange;" })
-                <span asp-validation-for="Category" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Description" class="control-label" style="color: orange;">Description</label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input asp-for="Anonymous" id="c" type="checkbox" value="true" />
-                <label asp-for="Anonymous" class="control-label" style="color: orange;">Donate Anonymously</label>
-                <span asp-validation-for="Anonymous" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" style="background-color: orange; color: white;" value="Donate" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+        <div class="row justify-content-center mt-3">
+            <a asp-action="Index" style="color: white;">Back to List</a>
+        </div>
     </div>
-</div>
-<br />
-<div>
-    <a asp-action="Index" style="color: orange;">Back to List</a>
-</div>
+
+</body>
+</html>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-
-

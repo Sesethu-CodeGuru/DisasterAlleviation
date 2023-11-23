@@ -1,105 +1,113 @@
-﻿using DisasterAlleviation.Models;
-using DisasterAlleviation.Users;
-using Microsoft.CodeAnalysis;
-using NuGet.LibraryModel;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using DisasterAlleviation.Disaster;
+using DisasterAlleviation.Models;
+using DisasterAlleviation.Users;
 
 namespace DisasterAlleviation.Purchased
 {
     public class PurchasedFunctions
     {
         static string connectionStr = Connection.Connect();
+
         public static void GetGoods(out List<DonPurchasedModel> Pgoods)
         {
             Pgoods = new List<DonPurchasedModel>();
 
-            string sql = $"select * from {Purchased.Table()}";
+            string sql = $"SELECT * FROM {Purchased.Table()}";
 
-            SqlDataReader reader;
-            SqlCommand command;
-            SqlConnection connection = new SqlConnection(connectionStr);
-
-            connection.Open();
-
-            using (command = new SqlCommand(sql, connection))
-            using (reader = command.ExecuteReader())
+            using (SqlConnection connection = new SqlConnection(connectionStr))
             {
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        try
-                        {
-                            Pgoods.Add(new DonPurchasedModel
-                            {
-                                id = int.Parse(string.Format("{0}", reader[Purchased.ID()])),
-                                Date = DateTime.Parse(string.Format("{0}", reader[Purchased.Date()])),
-                                DisasterID = int.Parse(string.Format("{0}", reader[Purchased.DisasID()])),
-                                DisasterDescription = string.Format("{0}", reader[Purchased.DisasDesc()]),
-                                Noitems = int.Parse(string.Format("{0}", reader[Purchased.Items()])),
-                                Category = string.Format("{0}", reader[Purchased.Cat()]),
-                                Username = string.Format("{0}", reader[Purchased.Username()])
-                            });
+                connection.Open();
 
-                        }
-                        catch (Exception e)
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
                         {
-                            Console.WriteLine(e);
+                            try
+                            {
+                                int noItems;
+                                if (int.TryParse(reader[Purchased.Items()].ToString(), out noItems) && noItems > 0)
+                                {
+                                    Pgoods.Add(new DonPurchasedModel
+                                    {
+                                        id = Convert.ToInt32(reader[Purchased.ID()]),
+                                        Date = Convert.ToDateTime(reader[Purchased.Date()]),
+                                        DisasterID = Convert.ToInt32(reader[Purchased.DisasID()]),
+                                        DisasterDescription = Convert.ToString(reader[Purchased.DisasDesc()]),
+                                        Noitems = noItems,
+                                        Username = Convert.ToString(reader[Purchased.Username()])
+                                    });
+                                }
+                                else
+                                {
+                                    //case where the number of items is not a valid positive integer.
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e);
+                            }
                         }
                     }
                 }
-
-                connection.Close();
             }
         }
+
         public static void AddGoods(DonPurchasedModel goods)
         {
-            string username = (goods.Anonymous) ? "anonymous" : UserFunctions.LoginUser();
-            DateTime date = DateTime.Parse(goods.Date.ToString());
-            string sql = $"insert into {Purchased.Table()}({Purchased.Date()},{Purchased.DisasID()}," +
-                $"{Purchased.DisasDesc()},{Purchased.Items()},{Purchased.Cat()},{Purchased.Username()}) " +
-                $"values('{date.ToString("s")}',{goods.DisasterID},'{GetDesc(goods.DisasterID)}','{goods.Noitems}','{goods.Category}','{username}')";
+            string username = goods.Anonymous ? "anonymous" : UserFunctions.LoginUser();
 
-            SqlCommand command;
-            SqlConnection connection = new SqlConnection(connectionStr);
+            string sql = $"INSERT INTO {Purchased.Table()} " +
+                         $"({Purchased.Date()}, {Purchased.DisasID()}, {Purchased.DisasDesc()}, " +
+                         $"{Purchased.Items()}, {Purchased.Username()}) " +
+                         $"VALUES(@Date, @DisasterID, @DisasterDesc, @Noitems, @Username)";
 
-            connection.Open();
-
-            using (command = new SqlCommand(sql, connection))
+            using (SqlConnection connection = new SqlConnection(connectionStr))
             {
+                connection.Open();
 
-                command.ExecuteNonQuery();
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@Date", goods.Date);
+                    command.Parameters.AddWithValue("@DisasterID", goods.DisasterID);
+                    command.Parameters.AddWithValue("@DisasterDesc", GetDesc(goods.DisasterID));
+                    command.Parameters.AddWithValue("@Noitems", goods.Noitems);
+                    command.Parameters.AddWithValue("@Username", username);
 
-                connection.Close();
-
+                    command.ExecuteNonQuery();
+                }
             }
         }
+
         public static string GetDesc(int id)
         {
             string value = "";
-            SqlDataReader reader;
-            SqlCommand command;
-            string sql = $"select {Disasters.Description()} from {Disasters.Table()} where {Disasters.ID()} ={id}";
+            string sql = $"SELECT {Disasters.Description()} FROM {Disasters.Table()} WHERE {Disasters.ID()} = @ID";
 
-            SqlConnection connection = new SqlConnection(connectionStr);
-
-            connection.Open();
-
-            using (command = new SqlCommand(sql, connection))
-            using (reader = command.ExecuteReader())
+            using (SqlConnection connection = new SqlConnection(connectionStr))
             {
-                if (reader.HasRows)
-                {
+                connection.Open();
 
-                    while (reader.Read())
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@ID", id);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        string output = string.Format("{0}", reader[0]);
-                        value = output;
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                value = Convert.ToString(reader[0]);
+                            }
+                        }
                     }
                 }
-
-                connection.Close();
             }
 
             return value;

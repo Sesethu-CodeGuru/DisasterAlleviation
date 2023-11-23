@@ -1,63 +1,86 @@
 ﻿@model DisasterAlleviation.Models.DisasterModel;
-<style>
-    a:hover {
-        color: orange;
-    }
 
-    #c {
-        accent-color: orange;
-    }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        a:hover {
+            color: purple;
+        }
 
-    a {
-        color: white;
-    }
-</style>
-<h4>Disaster catalog</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateProccess">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Startdate" class="control-label"></label>
-                <input asp-for="Startdate" class="form-control" type="date" />
-                <span asp-validation-for="Startdate" class="text-danger"></span>
+        #c {
+            accent-color: orange;
+        }
+
+        a, h4, label, span {
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .form-container {
+            display: inline-block;
+            text-align: left;
+            width: 50%; /* Adjust the width to your preference */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="form-container">
+                <h4>Add New Disaster</h4>
+                <hr />
+                <form asp-action="CreateProccess">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Startdate" class="control-label"></label>
+                        <input asp-for="Startdate" class="form-control" type="date" />
+                        <span asp-validation-for="Startdate" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="Enddate" class="control-label"></label>
+                        <input asp-for="Enddate" class="form-control" type="date" />
+                        <span asp-validation-for="Enddate" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="Location" class="control-label"></label>
+                        <input asp-for="Location" class="form-control" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="Aidtype" class="control-label"></label>
+                        <input asp-for="Aidtype" class="form-control" />
+                        <span asp-validation-for="Aidtype" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" style="background-color: orange;" value="Add Disaster" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Enddate" class="control-label"></label>
-                <input asp-for="Enddate" class="form-control" type="date" />
-                <span asp-validation-for="Enddate" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Aidtype" class="control-label"></label>
-                <input asp-for="Aidtype" class="form-control" />
-                <span asp-validation-for="Aidtype" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" style="background-color:orange" value="Add Disaster" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+        <div class="row justify-content-center mt-3">
+            <a asp-action="Index">Back to List</a>
+        </div>
     </div>
-</div>
-<br />
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+</body>
+</html>
 
 @section Scripts {
     @{

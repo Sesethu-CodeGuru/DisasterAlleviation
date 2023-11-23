@@ -3,6 +3,7 @@ using DisasterAlleviation.Monetary;
 using DisasterAlleviation.Purchased;
 using DisasterAlleviation.Disaster;
 using DisasterAlleviation.Models;
+using DisasterAlleviation.Goods;
 
 namespace DisasterAlleviation.Controllers
 {
@@ -12,18 +13,18 @@ namespace DisasterAlleviation.Controllers
         {
             var viewModel = new DashboardViewModel();
 
-            // Get total monetary donations
+            //total monetary donations
             List<DonMonetaryModel> monetaryDonations;
             MonetaryFunctions monetaryFunctions = new MonetaryFunctions();
             monetaryFunctions.GetDonations(out monetaryDonations);
             ViewBag.TotalMonetaryDonations = monetaryDonations.Sum(d => d.Amount);
 
-            // Get total number of goods received
-            List<DonPurchasedModel> purchasedGoods;
-            PurchasedFunctions.GetGoods(out purchasedGoods);
-            ViewBag.TotalGoodsReceived = purchasedGoods.Sum(g => g.Noitems);
+            //total number of goods received
+            List<DonGoodsModel> allGoodsDonations;
+            GoodsFunctions.GetAllGoodsDonations(out allGoodsDonations);
+            ViewBag.TotalGoodsReceived = allGoodsDonations.Sum(g => g.Noitems);
 
-            // Get currently active disasters with allocated money and goods
+            //active disasters with allocated money and goods
             List<DisasterModel> activeDisasters;
             DisasterFunctions.GetDisasters(out activeDisasters);
             ViewBag.ActiveDisasters = activeDisasters;

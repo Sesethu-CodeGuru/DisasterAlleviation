@@ -1,20 +1,89 @@
 ﻿@model DisasterAlleviation.Models.DashboardViewModel
 
-<h2>Dashboard</h2>
+<style>
+    body {
+        background-color: purple;
+        font-family: Arial, sans-serif;
+    }
 
-<div>
-    <h3>Total Monetary Donations: @ViewBag.TotalMonetaryDonations</h3>
-    <h3>Total Number of Goods Donations: @ViewBag.TotalGoodsReceived</h3>
+    .card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 10px;
+    }
 
-    <h3>Currently Active Disasters:</h3>
-    <ul>
-        @foreach (var disaster in ViewBag.ActiveDisasters)
+    th {
+        background-color: orange;
+        color: white;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    strong {
+        color: black;
+    }
+</style>
+
+<div class="card">
+    <table>
+        <thead><tr>
+            <th>
+                Donation History
+            </th>
+        </tr>
+        </thead>
+        <tbody><tr>
+            <td>
+                Total Monetary Donations: R @ViewBag.TotalMonetaryDonations
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Total No. Of Goods Donations: @ViewBag.TotalGoodsReceived
+            </td>
+        </tr>  
+        </tbody>
+    </table> 
+</div>
+
+<div class="card">
+    <table>
+        <thead><tr>
+            <th>
+                Currently Active Disasters
+            </th>
+        </tr>
+        </thead>
+        <tbody> 
+            @foreach (var disaster in ViewBag.ActiveDisasters)
         {
-            <li>
+        <tr>
+            <td>
                 <strong>@disaster.Description</strong>
                 <br />
-                Allocated Goods: @disaster.AllocatedGoods
-            </li>
+                No. Of Allocated Goods: @disaster.AllocatedGoods
+            </td>
+        </tr>
         }
-    </ul>
+        </tbody>
+    </table>
 </div>
